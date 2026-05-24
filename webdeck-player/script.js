@@ -1,123 +1,89 @@
-/**
- * Web Deck Player v1.0 - script file
- * 
- * Welcome to the script file! 
- * 
- * CONTENTS:
- * 1. Playlists Array
- * 2. Initial Playlist
- * 3. Themes
- * 4. Current Theme
-*/
+// Tu lista de canciones
+const songs = [
+    {
+        title: "Paramore - Decode",
+        src: "../music/decode-web.mp3",
+        cover: "../imgs/decode.jpg"
+    },
+    {
+        title: "My Chemical Romance - Helena",
+        src: "../music/helena-web.mp3",
+        cover: "../imgs/helena.jpg"
+    },
+    {
+        title: "Paramore - Decoy",
+        src: "../music/decoy-web.mp3",
+        cover: "../imgs/decoy.PNG"
+    }
+];
 
+let current = 0;
+let shuffleOn = false;
 
-/**
- * [1. PLAYLISTS ]
- * Here are the Youtube Playlists that will be available to play. To add a new one,
- * first make sure that your playlist is set to 'Hidden' or 'Public' in Youtube.
- * 
- * Then, look for the URL (for example: https://www.youtube.com/playlist?list=PLZyqOyXxaVETqpHhT_c5GPmAPzhJpJ5K7)
- * and copy only the part after 'list=' (for example: PLZyqOyXxaVETqpHhT_c5GPmAPzhJpJ5K7).
- * Finally, write a name for your playlist and paste the code you copied in the list below.
- * 
- * You can also delete the lists that you don't want.
-*/
-var myPlaylists = {
-    /*"90s HITS": 'PLZyqOyXxaVETqpHhT_c5GPmAPzhJpJ5K7',
-    "00s HITS": 'PL69714D95619E327E',
-    "VAPORWAVE": 'PLSChV4T8EDb9TZsLO23Tsj6-UUyAXtGg5',*/
-    'EMO': 'PL4dekhmgOG11zdvwLRGj6k1UqunGry3U_',
-    //"ANOTHER PLAYLIST": 'PLZyqOyXxaVETqpHhT_c5GPmAPzhJpJ5K7',
-};
+const audio = new Audio();
+const songLabel = document.getElementById("songLabel");
+const statusLabel = document.getElementById("statusLabel");
+const seekBar = document.getElementById("seekBar");
+const volumeBar = document.getElementById("volumeBar");
+const playButton = document.getElementById("playButton");
+const prevButton = document.getElementById("prevButton");
+const nextButton = document.getElementById("nextButton");
+const stopButton = document.getElementById("stopButton");
+const shuffleButton = document.getElementById("shuffleButton");
+const volumeButton = document.getElementById("volumeButton");
 
+// Filtro estilo parlante antiguo
+const audioCtx = new AudioContext();
+const source = audioCtx.createMediaElementSource(audio);
 
-/**
- * [2. INITIAL PLAYLIST ]
- * The first playlist that the player will load on startup. You may change it by
- * writing the name of the new playlist below.
-*/
-var currentPlaylist = "EMO";
+const highPass = audioCtx.createBiquadFilter();
+highPass.type = "highpass";
+highPass.frequency.value = 300;
 
+const lowPass = audioCtx.createBiquadFilter();
+lowPass.type = "lowpass";
+lowPass.frequency.value = 2800;
 
-/**
- * [3. THEMES]
- * Themes are a great way to customize the look of your player! Refer to the website
- * instructions to get new themes or to know how can you create yours. Then, you may 
- * add them to the list below using the format ( "THEME NAME": 'theme-folder-name' ).
- * 
- * You can also delete the themes that you don't want.
-*/
+const compressor = audioCtx.createDynamicsCompressor();
+compressor.threshold.value = -18;
+compressor.knee.value = 20;
+compressor.ratio.value = 12;
+
+const gain = audioCtx.createGain();
+gain.gain.value = 1.3;
+
+source.connect(highPass);
+highPass.connect(lowPass);
+lowPass.connect(compressor);
+compressor.connect(gain);
+gain.connect(audioCtx.destination);
+
+// Temas y logo (mantenemos lo que ya tenía el webdeck)
 var myThemes = {
     "DEFAULT": 'default',
     "SILVER": 'silver',
     "VIOLET": "violet",
     "MINIMAL": "minimal",
     "RED GRUNGE": "red-grunge",
-    //"ANOTHER THEME": 'another-theme',
 };
 
-
-/**
- * [4. CURRENT THEME]
- * Set the theme of your player writing its name below.
- */
+document.getElementById("playlistSelector").style.display = "none";
+document.getElementById("themeSelector").style.display = "none";
 var currentTheme = "VIOLET";
 
-
-// ===== END OF CONFIGURATION =====
-
-
-
-document.getElementById("player-theme").setAttribute("href", "./themes/"+ myThemes[currentTheme] + "/webdeck-player.css");
-
-
-var tag = document.createElement('script'); 
-
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-var player;
-var songLabel = document.getElementById("songLabel");
-var statusLabel = document.getElementById("statusLabel");
-var statusLabelInterval;
-
-var savedVolume = 50;
-var volumeButton = document.getElementById("volumeButton");
-volumeButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/sound.png' alt=''>";
-var volumeBar = document.getElementById("volumeBar");
-var isSlidingVolumeBar = false;
-var videoButton = document.getElementById("videoButton");
-var isVideoShowing = true;
+document.getElementById("player-theme").setAttribute("href", "./themes/" + myThemes[currentTheme] + "/webdeck-player.css");
 
 var logo = document.getElementById("playerLogo");
 logo.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/logo.png' alt=''>";
 
-var seekBar = document.getElementById("seekBar");
-var isSlidingSeekBar = false;
-var prevButton = document.getElementById("prevButton");
-var playButton = document.getElementById("playButton");
-var stopButton = document.getElementById("stopButton");
-var nextButton = document.getElementById("nextButton");
-var shuffleButton = document.getElementById("shuffleButton");
-var shufflePlaylist = false;
-var infoButton = document.getElementById("infoButton");
+volumeButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/sound.png' alt=''>";
 prevButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/prev.png' alt=''>";
 playButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/play.png' alt=''>";
 stopButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/stop.png' alt=''>";
 nextButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/next.png' alt=''>";
-infoButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/info.png' alt=''>";
-
-var playlistSelector = document.getElementById("playlistSelector");
-for(var key in myPlaylists){
-    var option = document.createElement('option');
-    option.value = key;
-    option.innerHTML = key;
-    playlistSelector.appendChild(option);
-}
 
 var themeSelector = document.getElementById("themeSelector");
-for(var key in myThemes){
+for (var key in myThemes) {
     var option = document.createElement('option');
     option.value = key;
     option.innerHTML = key;
@@ -125,234 +91,137 @@ for(var key in myThemes){
 }
 themeSelector.value = currentTheme;
 
-
-
-
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('youtube-player', {
-    height: '100%',
-    width: '100%',
-    playerVars: {
-        'controls': 0,
-        'autoplay': 1,
-        'playsinline': 1,
-        'loop': 1
-    },
-    events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-    }
-    });
-}
-
-function updateSongLabel() {
-    if(player.getVideoData() && player.getVideoData().title != undefined){
-        if(player.getVideoData().title == ""){
-            songLabel.innerHTML = "<b>READY</b>";
-        }
-        else{
-            songLabel.innerHTML = "<marquee><b>" + player.getVideoData().title + " - " + player.getVideoData().author + "</b></marquee>";
-        }
-    }else{
-        songLabel.innerHTML = "<b>Loading...</b>";
-    }
-}
-
-function updateStatusLabel() {
-    let statusLabelText = "";
-    let listText = " " + (player.getPlaylistIndex() + 1) + "/" + player.getPlaylist().length;
-    let timeText = "0:00/0:00";
-
-    seekBar.setAttribute("max", player.getDuration());
-    if(!isSlidingSeekBar){
-        seekBar.value = player.getCurrentTime();
-    }
-    if(!isSlidingVolumeBar){
-        volumeBar.value = player.getVolume();
-    }
-
-    
-    switch (player.getPlayerState()) {
-    case -1: 
-        statusLabelText = "Stopped";
-        break;
-    case 0:
-        statusLabelText = "Ended";
-        break;
-    case 1: 
-        statusLabelText = "Playing";
-        break;
-    case 2: 
-        statusLabelText = "Paused";
-        break;
-    case 3:
-        statusLabelText = "Loading... ";
-        break;
-    case 5:
-        statusLabelText = "Video Cued";
-        break;
-    }
-    timeText = formatTime(player.getCurrentTime()) + "/" + formatTime(player.getDuration());
-    statusLabel.innerHTML = statusLabelText + listText + " " + timeText;
-
-    if(player.getPlayerState() == 2 /* Paused */){
-        statusLabel.setAttribute('class', 'blink');
-    }
-    else{
-        statusLabel.removeAttribute('class');
-    }
-}
-
-function formatTime(input) {
-    var minutes = Math.trunc(input / 60);
-    var seconds = Math.trunc(input - minutes * 60);
-    if(seconds < 10) {
-    return minutes + ":0" + seconds;
-    }
-    else {
-    return minutes + ":" + seconds;
-    }
-}
-
-
-
-
-volumeButton.addEventListener("click", function(){
-    if(volumeBar.value != 0){
-        savedVolume = volumeBar.value;
-        player.setVolume(0);
-        volumeBar.value = 0;
-        volumeButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/mute.png' alt=''>";
-    }
-    else{
-        player.setVolume(savedVolume);
-        volumeBar.value = savedVolume;
-        volumeButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/sound.png' alt=''>";
-    }
-    
-});
-
-volumeBar.addEventListener("input", function(){
-    isSlidingVolumeBar = true;
-    player.setVolume(this.value);
-    if(volumeBar.value == 0){
-        volumeButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/mute.png' alt=''>";
-    }
-    else{
-        volumeButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/sound.png' alt=''>";
-    }
-});
-volumeBar.addEventListener("mouseup", function(){
-    isSlidingVolumeBar = false;
-});
-
-videoButton.addEventListener("click", function(){
-    if(isVideoShowing){
-        document.getElementById("youtube-player").hidden = true;
-        isVideoShowing = false;
-        videoButton.setAttribute('state', 'off');
-    }
-    else{
-        document.getElementById("youtube-player").hidden = false;
-        isVideoShowing = true;
-        videoButton.setAttribute('state', 'on');
-    }
-});
-
-
-
-
-seekBar.addEventListener("input", function(){
-    isSlidingSeekBar = true;
-    player.seekTo(this.value);
-});
-seekBar.addEventListener("mouseup", function(){
-    isSlidingSeekBar = false;
-});
-
-
-playButton.addEventListener("click", function() {
-    if(player.getPlayerState() == 1) {
-        player.pauseVideo();
-    }
-    else {
-        player.playVideo();
-    }
-});
-
-stopButton.addEventListener("click", function() {
-    if(player.getPlayerState() == 1 || player.getPlayerState() == 2) {
-        player.stopVideo();
-    }
-});
-
-nextButton.addEventListener("click", function() {
-    player.nextVideo();
-});
-
-prevButton.addEventListener("click", function() {
-    player.previousVideo();
-});
-
-shuffleButton.addEventListener("click", function() {
-    if(shufflePlaylist == false){
-        shufflePlaylist = true;
-        shuffleButton.setAttribute('state', 'on');
-    }
-    else{
-        shufflePlaylist = false;
-        shuffleButton.setAttribute('state', 'off');
-    }
-    player.setShuffle(shufflePlaylist);
-});
-
-infoButton.addEventListener("click", function() {
-    alert("Webdeck Player - created by Chris\ngithub.com/cristiancfm/webdeck-player\n(c) MIT License");
-});
-
-playlistSelector.addEventListener("change", function() {
-    currentPlaylist = playlistSelector.value;
-    player.stopVideo();
-    player.loadPlaylist({ list: myPlaylists[currentPlaylist] });
-});
-
-themeSelector.addEventListener("change", function() {
+themeSelector.addEventListener("change", function () {
     currentTheme = themeSelector.value;
-    document.getElementById("player-theme").setAttribute("href", "./themes/"+ myThemes[currentTheme] + "/webdeck-player.css");
-
+    document.getElementById("player-theme").setAttribute("href", "./themes/" + myThemes[currentTheme] + "/webdeck-player.css");
     volumeButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/sound.png' alt=''>";
     prevButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/prev.png' alt=''>";
     playButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/play.png' alt=''>";
     stopButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/stop.png' alt=''>";
     nextButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/next.png' alt=''>";
-    infoButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/info.png' alt=''>";
+    logo.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/logo.png' alt=''>";
 });
 
+function loadSong() {
+    audio.src = songs[current].src;
+    songLabel.innerHTML = "<marquee><b>" + songs[current].title + "</b></marquee>";
 
-
-
-
-function onPlayerReady(event) {
-    player.loadPlaylist({ list: myPlaylists[currentPlaylist] });
-    player.setVolume(50);
-    player.setLoop(true);
+    // Mostrar cover en lugar del video de youtube
+    document.getElementById("player-display").innerHTML = 
+        `<img src="${songs[current].cover}" style="width:100%; height:100%; object-fit:cover;">`;
 }
 
-function onPlayerStateChange(event) {
-    //Change play/pause button icons
-    if(player.getPlayerState() == 1 /* Playing */) {
+function updatePlayButton() {
+    if (audio.paused) {
+        playButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/play.png' alt=''>";
+    } else {
         playButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/pause.png' alt=''>";
     }
-    else {
-        playButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/play.png' alt=''>";
-    }
-    
-
-    //Load next video
-    if (event.data == YT.PlayerState.ENDED) {
-        player.nextVideo();
-    }
-    updateSongLabel();
-    clearInterval(statusLabelInterval);
-    statusLabelInterval = setInterval(updateStatusLabel, 100);
 }
+
+// Actualizar barra de progreso y estado
+setInterval(() => {
+    if (!isNaN(audio.duration)) {
+        seekBar.max = audio.duration;
+        seekBar.value = audio.currentTime;
+
+        const cur = formatTime(audio.currentTime);
+        const dur = formatTime(audio.duration);
+        const state = audio.paused ? "PAUSED" : "PLAYING";
+        statusLabel.innerHTML = `${state} ${current + 1}/${songs.length} ${cur}/${dur}`;
+
+        if (audio.paused) {
+            statusLabel.setAttribute('class', 'blink');
+        } else {
+            statusLabel.removeAttribute('class');
+        }
+    }
+}, 100);
+
+function formatTime(input) {
+    var minutes = Math.trunc(input / 60);
+    var seconds = Math.trunc(input - minutes * 60);
+    return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+}
+
+playButton.addEventListener("click", () => {
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    if (audio.paused) {
+        audio.play();
+    } else {
+        audio.pause();
+    }
+    updatePlayButton();
+});
+
+stopButton.addEventListener("click", () => {
+    audio.pause();
+    audio.currentTime = 0;
+    updatePlayButton();
+});
+
+nextButton.addEventListener("click", () => {
+    if (shuffleOn) {
+        current = Math.floor(Math.random() * songs.length);
+    } else {
+        current = (current + 1) % songs.length;
+    }
+    loadSong();
+    audio.play();
+    updatePlayButton();
+});
+
+prevButton.addEventListener("click", () => {
+    current = (current - 1 + songs.length) % songs.length;
+    loadSong();
+    audio.play();
+    updatePlayButton();
+});
+
+audio.addEventListener("ended", () => {
+    if (shuffleOn) {
+        current = Math.floor(Math.random() * songs.length);
+    } else {
+        current = (current + 1) % songs.length;
+    }
+    loadSong();
+    audio.play();
+    updatePlayButton();
+});
+
+seekBar.addEventListener("input", () => {
+    audio.currentTime = seekBar.value;
+});
+
+volumeBar.addEventListener("input", () => {
+    audio.volume = volumeBar.value / 100;
+    volumeButton.innerHTML = volumeBar.value == 0
+        ? "<img src='./themes/" + myThemes[currentTheme] + "/images/mute.png' alt=''>"
+        : "<img src='./themes/" + myThemes[currentTheme] + "/images/sound.png' alt=''>";
+});
+
+let savedVolume = 50;
+volumeButton.addEventListener("click", () => {
+    if (audio.volume != 0) {
+        savedVolume = volumeBar.value;
+        audio.volume = 0;
+        volumeBar.value = 0;
+        volumeButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/mute.png' alt=''>";
+    } else {
+        audio.volume = savedVolume / 100;
+        volumeBar.value = savedVolume;
+        volumeButton.innerHTML = "<img src='./themes/" + myThemes[currentTheme] + "/images/sound.png' alt=''>";
+    }
+});
+
+shuffleButton.addEventListener("click", () => {
+    shuffleOn = !shuffleOn;
+    shuffleButton.setAttribute('state', shuffleOn ? 'on' : 'off');
+});
+
+// También eliminá el selector de playlist del HTML ya que no se usa más,
+document.getElementById("playlistSelector").style.display = "none";
+
+// Iniciar
+audio.volume = volumeBar.value / 100;
+loadSong();
