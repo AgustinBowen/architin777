@@ -1,11 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Architin777</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Architin777</h1>
+    <div class="container">
+        <header>
+            <nav>
+                <h1>Architin777</h1>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <img src="./imgs/deftones.gif" class="deftones-gif" alt="Deftones Gif">
+            </nav>
+        </header>
+        <main class="grid-layout">
+            <section class="panel left-panel">
+                <div class="card profile-card">
+                    <h2 class="profile-name">Agustin Bowen</h2>
+                    <div class="profile-info">
+                        <img src="./imgs/capeta.jpg" alt="Profile Picture">
+                        <p>Estudiante de sistemas de 24 años</p>
+                    </div>
+
+                </div>
+                <div class="card contact-card">
+                    <h2>Contactame</h2>
+                    <ul>
+                        <li>Linkedin</li>
+                        <li>GitHub</li>
+                        <form action="https://formspree.io/f/mgebgqzo" method="POST" class="contact-form">
+                            Enviame un email:
+                            <input type="email" name="_replyto" placeholder="Tu Email" required>
+                            <textarea name="message" placeholder="Tu mensaje" required></textarea>
+                            <button type="submit">Enviar</button>
+                        </form>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h2>Intereses</h2>
+                    <p>Music, movies, books, general taste</p>
+                </div>
+            </section>
+
+            <section class="panel center-panel">
+                <div class="card about-card">
+                    <h2>Sobre Mi</h2>
+                    <p>Soy un estudiante de sistemas de 24 años de Argentina. Me gusta la el automovilismo, la musica y
+                        la tecnologia
+                        Actualmente estoy cursando el ultimo año de la carrera en la Universidad Nacional de la
+                        Patagonia San Juan Bosco, y me encuentro en la busqueda de mi primer empleo como desarrollador
+                    </p>
+                </div>
+                <div class="card projects-card">
+                    <h2>Proyectos</h2>
+
+                    <div id="vinyl-gallery">
+                        <a href="github.com/architin777" target="_blank">
+                            <div class="vinyl-item">
+                                <div class="vinyl">
+                                    <img src="./imgs/hayley.jpg" alt="">
+                                </div>
+                                <span class="title">Deftones - White Pony</span>
+                            </div>
+                        </a>
+                        <a href="github.com/architin777" target="_blank">
+                            <div class="vinyl-item">
+                                <div class="vinyl">
+                                    <img src="./imgs/dupstep.jpg" alt="">
+                                </div>
+                                <span class="title">System Of A Down - Toxicity</span>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>Friends</h2>
+                    <p>Connections, top friends, networking.</p>
+                </div>
+            </section>
+
+            <!--<section class="panel right-panel">
+                <div class="card">
+                    <h2>Fotos</h2>
+                    <p>Imagenes, videos y multimedia.</p>
+                </div>
+                <div class="card">
+                    <h2>Blog</h2>
+                    <p>Latest posts, entries, and updates.</p>
+                </div>
+                <div class="card">
+                    <h2>Space</h2>
+                    <p>Links, friends, additional info.</p>
+                </div>
+            </section>-->
+        </main>
+    </div>
 </body>
+
 </html>
