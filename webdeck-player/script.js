@@ -23,9 +23,9 @@
  * You can also delete the lists that you don't want.
 */
 var myPlaylists = {
-    "90s HITS": 'PLZyqOyXxaVETqpHhT_c5GPmAPzhJpJ5K7',
+    /*"90s HITS": 'PLZyqOyXxaVETqpHhT_c5GPmAPzhJpJ5K7',
     "00s HITS": 'PL69714D95619E327E',
-    "VAPORWAVE": 'PLSChV4T8EDb9TZsLO23Tsj6-UUyAXtGg5',
+    "VAPORWAVE": 'PLSChV4T8EDb9TZsLO23Tsj6-UUyAXtGg5',*/
     'EMO': 'PL4dekhmgOG11zdvwLRGj6k1UqunGry3U_',
     //"ANOTHER PLAYLIST": 'PLZyqOyXxaVETqpHhT_c5GPmAPzhJpJ5K7',
 };
@@ -134,7 +134,7 @@ function onYouTubeIframeAPIReady() {
     width: '100%',
     playerVars: {
         'controls': 0,
-        'autoplay': 0,
+        'autoplay': 1,
         'playsinline': 1,
         'loop': 1
     },
