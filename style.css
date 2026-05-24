@@ -287,7 +287,6 @@ main::before{
 }
 
 .projects-card h2{
-    margin-bottom:20px;
     text-shadow:2px 2px 3px #5400ff;
 }
 
@@ -367,4 +366,21 @@ main::before{
 
 .vinyl:hover + .title{
     opacity:1;
+}
+
+.projects-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background: linear-gradient(
+        to top,
+        #5400ff,
+        #000
+    );
+    padding:10px;
+}
+
+.projects-header img{
+    width:40px;
+    height:40px;
 }
