@@ -48,16 +48,15 @@
         </div>-->
 
         <div class="music-player" style="padding:0; height:230px;">
-            <iframe 
-                src="./webdeck-player/index.html" 
-                style="width:100%; height:100%; border:none;"
-            ></iframe>
+            <iframe src="./webdeck-player/index.html" style="width:100%; height:100%; border:none;"
+                autoplay="1"></iframe>
             <img src="./imgs/dj.gif" class="dj-gif" alt="DJ Gif">
             <img src="./imgs/speaker.gif" class="speaker-gif" alt="Speaker Gif">
         </div>
         <main class="grid-layout">
             <section class="panel left-panel">
                 <div class="card profile-card">
+
                     <h2 class="profile-name">Agustin Bowen</h2>
                     <div class="profile-info">
                         <img src="./imgs/capeta.jpg" alt="Profile Picture">
@@ -65,27 +64,37 @@
                     </div>
                     <p>24 años</p>
                 </div>
+
                 <div class="card contact-card">
                     <h2>Contactame</h2>
-                    <ul class="contact-links">
-                        <li><a href="https://linkedin.com/in/AgustinBowen" target="_blank">Linkedin</a></li>
-                        <li><a href="https://github.com/AgustinBowen" target="_blank">GitHub</a></li>
-                    </ul>
+                    <div style="display:flex; align-items:center; justify-content:space-between;">
+                        <ul class="contact-links">
+                            <li><a href="https://linkedin.com/in/AgustinBowen" target="_blank">Linkedin</a></li>
+                            <li><a href="https://github.com/AgustinBowen" target="_blank">GitHub</a></li>
+                        </ul>
+                        <img src="./imgs/nyancatskrillex.gif" alt="Nyan Cat Skrillex Gif"
+                            style="width:250px; height:100px;">
+                    </div>
                 </div>
                 <div class="card email-card">
+                    <div class="email-header"></div>
                     <form action="https://formspree.io/f/mgebgqzo" method="POST" class="contact-form">
                         <p class="form-title">Enviame un email:</p>
                         <input type="email" name="_replyto" placeholder="Tu Email" required>
                         <textarea name="message" placeholder="Tu mensaje" required></textarea>
                         <button type="submit">Enviar</button>
                     </form>
+                    <div class="email-footer"></div>
                 </div>
             </section>
 
             <section class="panel center-panel">
                 <div class="card about-card">
-                    <h2>Sobre Mi</h2>
-                    <p>Soy un estudiante de sistemas de 24 años de Argentina. Me gusta la el automovilismo, la musica y
+                    <div class="about-header" style="display:flex; align-items:center; gap:10px;">
+                        <h2>Sobre Mi</h2>
+                        <img src="./imgs/hayleyaboutme.gif" alt="About Gif" style="width:50px; height:50px; ">
+                    </div>
+                    <p>Soy un estudiante de sistemas de 24 años de Argentina. Me gusta el automovilismo, la musica y
                         la tecnologia
                         Actualmente estoy cursando el ultimo año de la carrera en la Universidad Nacional de la
                         Patagonia San Juan Bosco, y me encuentro en la busqueda de mi primer empleo como desarrollador
@@ -100,23 +109,42 @@
                         <a href="github.com/architin777" target="_blank">
                             <div class="vinyl-item">
                                 <div class="vinyl">
-                                    <img src="./imgs/hayley.jpg" alt="">
+                                    <img src="./imgs/elcartucho.PNG" alt="">
                                 </div>
-                                <span class="title">Deftones - White Pony</span>
+                                <span class="title">El Cartucho - ECommerce</span>
                             </div>
                         </a>
-                        <a href="github.com/architin777" target="_blank">
+                        <a href="https://github.com/AgustinBowen/ElCartucho-Admin" target="_blank">
                             <div class="vinyl-item">
                                 <div class="vinyl">
-                                    <img src="./imgs/dupstep.jpg" alt="">
+                                    <img src="./imgs/elcartuchoadmin.PNG" alt="">
                                 </div>
-                                <span class="title">System Of A Down - Toxicity</span>
+                                <span class="title">El Cartucho - Admin Panel</span>
                             </div>
                         </a>
-
+                        <a href="https://github.com/AgustinBowen/CapitanTeemo" target="_blank">
+                            <div class="vinyl-item">
+                                <div class="vinyl">
+                                    <img src="./imgs/capitanteemo.jpg" alt="">
+                                </div>
+                                <span class="title">Capitan Teemo - IDS Notificaciones Discord Bot</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card skills-card">
+                    <div class="skills-header">
+                        <h2>Habilidades</h2>
+                    </div>
+
+                    <img src="./imgs/linus.gif" style="width:100%; height:200px; object-fit:cover;">
+
+                    <div class="skills-friends">
+                        <div class="skill-friend">
+                            <img src="./imgs/python90slogo.png" alt="Python Logo">
+                            <span>Python</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 

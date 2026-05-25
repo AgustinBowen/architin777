@@ -1,20 +1,30 @@
 // Tu lista de canciones
 const songs = [
     {
+        title: "You're the sun [ 3ksyh Edition ] archive",
+        src: "../music/y2klima-web.mp3",
+        cover: "../imgs/lima.PNG"
+    },
+    {
         title: "Paramore - Decode",
         src: "../music/decode-web.mp3",
-        cover: "../imgs/decode.jpg"
+        cover: "../imgs/hayley2.gif"
     },
     {
         title: "My Chemical Romance - Helena",
         src: "../music/helena-web.mp3",
-        cover: "../imgs/helena.jpg"
+        cover: "../imgs/mcr.gif"
     },
     {
         title: "Paramore - Decoy",
         src: "../music/decoy-web.mp3",
-        cover: "../imgs/decoy.PNG"
-    }
+        cover: "../imgs/paramoreriotcd.gif"
+    },
+    {
+        title: "Evanescence - Bring Me To Life (Demo)",
+        src: "../music/bringmetolife-web.mp3",
+        cover: "../imgs/evanescence.gif"
+    },
 ];
 
 let current = 0;
