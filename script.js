@@ -137,3 +137,31 @@ document.addEventListener("click", async ()=>{
 
 audio.addEventListener("play", updatePlayButton);
 audio.addEventListener("pause", updatePlayButton);
+
+const form = document.getElementById("contact-form");
+const status = document.getElementById("status");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = new FormData(form);
+
+    const response = await fetch(
+        "https://formspree.io/f/mgebgqzo",
+        {
+            method: "POST",
+            body: data,
+            headers: {
+                Accept: "application/json"
+            }
+        }
+    );
+
+    if(response.ok){
+        status.textContent = "Mensaje enviado!";
+        form.reset();
+    }
+    else{
+        status.textContent = "Error al enviar";
+    }
+});

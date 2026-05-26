@@ -137,15 +137,21 @@
                         <h2 style="color:#fff;">Enviame un email</h2>
                         <img src="./imgs/emailsendme.gif" alt="Email Header Gif" style="width:50px; height:30px;">
                     </div>
-                    <form action="https://formspree.io/f/mgebgqzo" method="POST" class="contact-form">
-                        <input type="email" name="_replyto" placeholder="Tu Email" required>
-                        <textarea name="message" placeholder="Tu mensaje" required></textarea>
+                    <form action="https://formspree.io/f/xqejywbz" method="POST" class="contact-form">
+
+                        <input style="font-style: italic; font-family: 'Times New Roman', Times, serif;" type="email" placeholder="Tu email" name="email" minlength="5" maxlength="100" required>
+
+                        <textarea style="font-style: italic; font-family: 'Times New Roman', Times, serif;" name="message" placeholder="Tu mensaje" minlength="10" maxlength="1000"
+                            required></textarea>
+
                         <button type="submit">
-                            <img src="./imgs/wrc.gif" alt="Email Header Gif" style="width:50px; height:30px;">
+                            <img src="./imgs/wrc.gif" width="50" height="30">
                             Enviar
-                            <img src="./imgs/v8supercars.gif" alt="Email Header Gif" style="width:50px; height:30px;">
+                            <img src="./imgs/v8supercars.gif" width="50" height="30">
                         </button>
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                     </form>
+                    <p id="status"></p>
                     <div class="email-footer"></div>
                 </div>
             </section>
@@ -177,4 +183,5 @@
 <footer>
     <p>Pagina Web hecha por <a href="https://github.com/AgustinBowen">Architin777</a> el año 2026</p>
 </footer>
+
 </html>

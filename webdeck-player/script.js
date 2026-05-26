@@ -235,3 +235,4 @@ document.getElementById("playlistSelector").style.display = "none";
 // Iniciar
 audio.volume = volumeBar.value / 100;
 loadSong();
+
