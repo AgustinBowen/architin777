@@ -1,6 +1,6 @@
 # Sitio Web de Architin777
 
-Portfolio con estilo de los 90s hecho por mí.
+Portfolio con estilo de los 90s / 00s hecho por mí.
 
 ## Contenido
 
