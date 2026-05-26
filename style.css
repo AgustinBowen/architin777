@@ -18,7 +18,30 @@ textarea {
 body {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     position: relative;
+
+}
+footer{
+    color: #fff;
+    margin-block: 20px;
+    font-size: 1.3rem;
+    font-style: italic;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    padding: 10px;
+}
+
+footer a {
+    color: #fff;
+    text-shadow: 1px 1px 2px #7c4dff;
+    font-style: italic;
+}
+
+footer a:hover {
+    text-shadow: 2px 2px 3px #5400ff;
+    text-decoration: underline;
 }
 
 body::before {
@@ -167,7 +190,7 @@ main::before {
     padding: 30px 20px 20px;
     color: white;
 
-    border: 1px dashed #5400ff;
+    border: 1px dashed #ffffff;
     border-radius: 10px;
 
     display: flex;
