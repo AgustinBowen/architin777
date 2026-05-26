@@ -1,6 +1,11 @@
 // Tu lista de canciones
 const songs = [
     {
+        title: "Formula 06 (Monte Carlo Radio Mix)",
+        src: "../music/formula06-web.mp3",
+        cover: "../imgs/choquef1.gif"
+    },
+    {
         title: "You're the sun [ 3ksyh Edition ] archive",
         src: "../music/y2klima-web.mp3",
         cover: "../imgs/lima.PNG"
@@ -236,3 +241,8 @@ document.getElementById("playlistSelector").style.display = "none";
 audio.volume = volumeBar.value / 100;
 loadSong();
 
+window.addEventListener("load", () => {
+    loadSong();
+    audio.play();
+    updatePlayButton();
+});
