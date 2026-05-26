@@ -68,17 +68,6 @@ nav h1 {
     font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
-
-
-.deftones-gif {
-    position: absolute;
-    width: 300px;
-    height: 150px;
-    top: -10px;
-    right: -20px;
-    z-index: 1;
-}
-
 nav::before {
     content: "";
     position: absolute;
@@ -116,6 +105,7 @@ nav ul {
     font-weight: bold;
     font-family: 'Times New Roman', cursive, sans-serif;
     box-shadow: 0 0 10px #fff;
+    margin-bottom: 10px;
 }
 
 
@@ -314,9 +304,10 @@ main::before {
     border-top: 1px solid #fff;
     border-bottom: 1px solid #fff;
     background: transparent;
-    font-size: 1rem;
+    font-size: 1.8rem;
     cursor: pointer;
     font-family: 'Times New Roman', cursive, sans-serif;
+    text-shadow: 2px 2px 3px #5400ff;
 }
 
 .contact-form button:hover {
@@ -584,8 +575,8 @@ main {
     position: absolute;
     width: 200px;
     height: 100px;
-    top: 150px;
-    right: -40px;
+    top: 0px;
+    right: -20px;
     z-index: 1;
 }
 
