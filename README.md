@@ -15,7 +15,7 @@ Portfolio con estilo de los 90s hecho por mí.
 2. Necesitas una extension como LiveServer para ejecutar el proyecto
 
 ## Capturas del sitio
-- ![Architin777](https://i.postimg.cc/Hny8bXHp/architin7771.png)
-- ![Presentacion y proyectos](https://i.postimg.cc/5jWYgyNW/architin7772.png)
-- ![Habilidades y formulario de contacto](https://i.postimg.cc/5jWYgyNM/architin7773.png)
-- ![Footer](https://i.postimg.cc/hhRzsvPB/architin7774.png)
+- ![Architin777](https://i.postimg.cc/Yq76B2wP/Presentacion-Architin7771.png)
+- ![Presentacion y proyectos](https://i.postimg.cc/GhRFn3C1/Presentacion-Architin7772.png)
+- ![Habilidades y formulario de contacto](https://i.postimg.cc/wTzXYxpp/Presentacion-Architin7773.png)
+- ![Footer](https://i.postimg.cc/fTscQWNs/Presentacion-Architin7774.png)
