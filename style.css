@@ -82,7 +82,8 @@ body::before {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding-block: 20px;
+    padding-inline: 0px;
 }
 
 header {
