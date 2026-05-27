@@ -1,18 +1,36 @@
+/* links y botones */
 a,
 button {
-    cursor: url('./cursors/Troll\ Face\ -\ Normal\ Select.cur'), pointer;
+    cursor: url("./cursors/Troll Face - Precision Select.cur"), pointer;
 }
 
+/* hover links */
+a:hover,
+button:hover {
+    cursor: url("./cursors/Troll Face - Precision Select.cur"), pointer;
+}
+
+/* campos de texto */
 input,
 textarea {
-    cursor: url('./cursors/Troll\ Face\ -\ Text\ Select.cur'), text;
+    cursor: url("./cursors/Troll Face - Text Select.cur"), text;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: url('./cursors/Troll\ Face\ -\ Normal\ Select.cur'), auto !important;
+}
+
+html,
+body,
+*{
+    font-family:
+        "Times New Roman",
+        "Liberation Serif",
+        "Nimbus Roman",
+        "Times",
+        serif;
 }
 
 body {
@@ -21,10 +39,11 @@ body {
     flex-direction: column;
     align-items: center;
     position: relative;
-    font-family: 'Times New Roman', cursive, sans-serif;
+    cursor: url("./cursors/Troll Face - Normal Select.cur"), auto;
 
 }
-footer{
+
+footer {
     color: #fff;
     margin-block: 20px;
     font-size: 1.3rem;
@@ -70,7 +89,6 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Courier New', sans-serif;
 }
 
 nav {
@@ -89,7 +107,6 @@ nav h1 {
     font-size: 3rem;
     color: #fff;
     text-shadow: 2px 2px 3px #5400ff;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 nav::before {
@@ -127,9 +144,9 @@ nav ul {
 .nav-links {
     color: #fff;
     font-weight: bold;
-    font-family: 'Times New Roman', cursive, sans-serif;
+    font-style: italic;
+    font-size: 1.2rem;
     box-shadow: 0 0 10px #fff;
-    margin-bottom: 10px;
 }
 
 
@@ -160,11 +177,9 @@ main::before {
 .grid-layout {
     display: grid;
     grid-template-columns: 230px 1fr 230px;
-    /* antes 250px */
     gap: 20px;
     margin-bottom: 0px;
     align-items: start;
-    /* que tome solo el alto del contenido */
 }
 
 .panel {
@@ -210,7 +225,7 @@ main::before {
 
     background: rgba(0, 0, 0);
     padding: 0 10px;
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
 
@@ -319,7 +334,7 @@ main::before {
 
 .contact-form button {
     padding: 10px;
-    display:flex;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     border: none;
@@ -330,7 +345,6 @@ main::before {
     background: transparent;
     font-size: 1.8rem;
     cursor: pointer;
-    font-family: 'Times New Roman', cursive, sans-serif;
     text-shadow: 2px 2px 3px #5400ff;
 }
 
@@ -344,11 +358,11 @@ main::before {
 }
 
 .contact-links {
-    list-style: square;
     margin-left: 18px;
 }
 
 .contact-links li {
+    list-style: square;
     margin-bottom: 10px;
     background: linear-gradient(to top,
             #5400ff,
@@ -356,22 +370,27 @@ main::before {
 
 }
 
-.contact-links a {
+.contact-links > li > a {
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     text-shadow: 1px 1px 2px #7c4dff;
-    text-decoration: overline;
+    text-decoration: underline;
     font-style: italic;
 }
+
 .contact-links a:hover {
     text-shadow: 2px 2px 3px #5400ff;
-    text-decoration: underline;
+    text-decoration: overline;
 }
 
 .about-card {
     background: linear-gradient(to top,
             #5400ff,
             #000);
+}
+
+.about-header{
+    font-style: italic;
 }
 
 .about-card h2 {
@@ -405,14 +424,19 @@ main::before {
 
 /*PROYECTOS VINILOS*/
 .projects-card {
-    overflow: hidden;
     background: transparent !important;
+    width: 100%;
+    overflow: visible;
+    /* ← importante */
+    margin-bottom: 20px;
+    /* ← separación con la sección siguiente */
 }
 
 .projects-card h2 {
     text-shadow: 2px 2px 3px #5400ff;
 }
 
+/*
 #vinyl-gallery {
     width: 100%;
     height: 240px;
@@ -486,7 +510,7 @@ main::before {
 
 .vinyl:hover+.title {
     opacity: 1;
-}
+}*/
 
 .projects-header {
     margin-bottom: 20px;
@@ -605,7 +629,7 @@ main {
 }
 
 
-.skills-card{
+.skills-card {
     background: transparent !important;
     padding: 0 !important;
     border: none !important;
@@ -629,7 +653,7 @@ main {
     font-style: italic;
 }
 
-.skills-gif-container{
+.skills-gif-container {
     display: flex;
     justify-content: start;
     width: 100%;
@@ -662,7 +686,7 @@ main {
 }
 
 
-.email-card{
+.email-card {
     background: transparent !important;
     padding: 0 !important;
     border: none !important;
@@ -684,4 +708,117 @@ main {
     padding: 20px;
     font-size: 1rem;
     font-style: italic;
+}
+
+
+:root {
+    --cd-image: url('https://fluorescent-lights.neocities.org/Digital-CD-Disk-Vector-Transparent-PNG.png');
+}
+
+.projects-layout {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.recordPlayer {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: visible;
+}
+
+/* disco */
+.recordPlayer::before {
+    content: "";
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    background-image: var(--cd-image);
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    top: 10px;
+    right: -25px;
+
+    z-index: 0;
+
+    animation: spin 5s linear infinite;
+    transition: right .5s ease;
+}
+
+.recordPlayer:hover::before {
+    right: -65px;
+}
+
+/* caja */
+.cd-case {
+    position: relative;
+    width: 160px;
+    height: 140px;
+    z-index: 2;
+}
+
+.cd-title {
+    text-wrap: wrap;
+    font-style: italic;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #7c4dff;
+    margin-top: 8px;
+    text-align: center;
+    margin-top: 8px;
+    color: #fff;
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+.cd-title:hover {
+    text-shadow: 2px 2px 3px #5400ff;
+    text-decoration: underline;
+}
+
+/* brillo solo encima de la caja */
+.cd-case::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        url('https://fluorescent-lights.neocities.org/f0rzNHe.png'),
+        linear-gradient(150deg,
+            rgba(255, 255, 255, .4),
+            rgba(255, 255, 255, .2),
+            transparent 40%,
+            rgba(255, 255, 255, .1),
+            rgba(255, 255, 255, .5));
+
+    background-size: contain, cover;
+
+    pointer-events: none;
+    z-index: 3;
+}
+
+.cover {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border: 2px solid rgba(255, 255, 255, .25);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
