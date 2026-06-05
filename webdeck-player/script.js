@@ -34,8 +34,11 @@ const songs = [
 
 let current = 0;
 let shuffleOn = false;
+let isCdEffectPlaying = false;
+let hasCdEffectPlayed = false;
 
 const audio = new Audio();
+const cdEffectAudio = new Audio("../music/cdeffect-web.mp3");
 const songLabel = document.getElementById("songLabel");
 const statusLabel = document.getElementById("statusLabel");
 const seekBar = document.getElementById("seekBar");
@@ -72,6 +75,23 @@ highPass.connect(lowPass);
 lowPass.connect(compressor);
 compressor.connect(gain);
 gain.connect(audioCtx.destination);
+
+cdEffectAudio.preload = "auto";
+cdEffectAudio.volume = volumeBar.value / 100;
+
+function playCdEffectThenSong() {
+    isCdEffectPlaying = true;
+    songLabel.innerHTML = "<marquee><b>Insertando CD...</b></marquee>";
+    statusLabel.innerHTML = "INSERTANDO CD...";
+    cdEffectAudio.play().catch(() => {});
+}
+
+cdEffectAudio.addEventListener("ended", () => {
+    isCdEffectPlaying = false;
+    hasCdEffectPlayed = true;
+    loadSong();
+    audio.play().then(updatePlayButton).catch(() => {});
+});
 
 // Temas y logo (mantenemos lo que ya tenía el webdeck)
 var myThemes = {
@@ -159,8 +179,43 @@ function formatTime(input) {
     return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
 }
 
+function getSavedVolume() {
+    try {
+        const stored = localStorage.getItem("webdeck-player-volume");
+        if (stored !== null) {
+            const parsed = parseInt(stored, 10);
+            if (!isNaN(parsed)) return Math.min(100, Math.max(0, parsed));
+        }
+    } catch (e) {
+        
+    }
+    return 50;
+}
+
+function saveVolume(value) {
+    try {
+        localStorage.setItem("webdeck-player-volume", String(value));
+    } catch (e) {
+        // Ignorar si no es posible guardar
+    }
+}
+
 playButton.addEventListener("click", () => {
     if (audioCtx.state === "suspended") audioCtx.resume();
+
+    if (!hasCdEffectPlayed) {
+        if (!isCdEffectPlaying) {
+            playCdEffectThenSong();
+        } else {
+            cdEffectAudio.pause();
+            isCdEffectPlaying = false;
+            hasCdEffectPlayed = true;
+            loadSong();
+            audio.play().then(updatePlayButton).catch(() => {});
+        }
+        return;
+    }
+
     if (audio.paused) {
         audio.play();
     } else {
@@ -170,6 +225,11 @@ playButton.addEventListener("click", () => {
 });
 
 stopButton.addEventListener("click", () => {
+    if (isCdEffectPlaying) {
+        cdEffectAudio.pause();
+        isCdEffectPlaying = false;
+        hasCdEffectPlayed = true;
+    }
     audio.pause();
     audio.currentTime = 0;
     updatePlayButton();
@@ -210,12 +270,15 @@ seekBar.addEventListener("input", () => {
 
 volumeBar.addEventListener("input", () => {
     audio.volume = volumeBar.value / 100;
+    cdEffectAudio.volume = audio.volume;
+    saveVolume(volumeBar.value);
+    savedVolume = Number(volumeBar.value);
     volumeButton.innerHTML = volumeBar.value == 0
         ? "<img src='./themes/" + myThemes[currentTheme] + "/images/mute.png' alt=''>"
         : "<img src='./themes/" + myThemes[currentTheme] + "/images/sound.png' alt=''>";
 });
 
-let savedVolume = 50;
+let savedVolume = getSavedVolume();
 volumeButton.addEventListener("click", () => {
     if (audio.volume != 0) {
         savedVolume = volumeBar.value;
@@ -234,15 +297,15 @@ shuffleButton.addEventListener("click", () => {
     shuffleButton.setAttribute('state', shuffleOn ? 'on' : 'off');
 });
 
-// También eliminá el selector de playlist del HTML ya que no se usa más,
 document.getElementById("playlistSelector").style.display = "none";
 
-// Iniciar
-audio.volume = volumeBar.value / 100;
+const initialVolume = getSavedVolume();
+volumeBar.value = initialVolume;
+audio.volume = initialVolume / 100;
+cdEffectAudio.volume = audio.volume;
 loadSong();
 
 window.addEventListener("load", () => {
-    loadSong();
-    audio.play();
+    playCdEffectThenSong();
     updatePlayButton();
 });
