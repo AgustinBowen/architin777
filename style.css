@@ -24,7 +24,7 @@ textarea {
 
 html,
 body,
-*{
+* {
     font-family:
         "Times New Roman",
         "Liberation Serif",
@@ -97,7 +97,7 @@ nav {
     flex-direction: column;
     width: 100%;
     padding-inline: 10px;
-    border: 1px solid #fff;
+    border: 1px solid #30293f;
     border-radius: 0px;
     justify-content: space-evenly;
     height: 120px;
@@ -156,7 +156,7 @@ main {
     margin-bottom: 20px;
     position: relative;
     padding: 30px;
-    border: 1px solid #fff;
+    border: 1px solid #30293f;
 }
 
 
@@ -193,7 +193,7 @@ main::before {
 .left-panel,
 .right-panel {
     background: #000;
-    border: 1px dashed #fff;
+    border: 1px solid #30293f;
 
     padding: 15px;
     border-radius: 5px;
@@ -207,7 +207,7 @@ main::before {
     padding: 30px 20px 20px;
     color: white;
 
-    border: 1px dashed #ffffff;
+    border: 1px dashed #625481;
     border-radius: 10px;
 
     display: flex;
@@ -257,9 +257,17 @@ main::before {
     }
 
     /* Reorden de paneles: centro → derecha → izquierda */
-    .center-panel { order: 1; }
-    .right-panel  { order: 2; }
-    .left-panel   { order: 3; }
+    .center-panel {
+        order: 1;
+    }
+
+    .right-panel {
+        order: 2;
+    }
+
+    .left-panel {
+        order: 3;
+    }
 
     /* Evita que imágenes desborden sus contenedores
        EXCLUIMOS .cover para que no pierda su height:100% */
@@ -314,7 +322,8 @@ main::before {
     }
 
     /* Evita scroll horizontal en movil */
-    html, body {
+    html,
+    body {
         overflow-x: hidden;
         max-width: 100%;
     }
@@ -346,14 +355,14 @@ main::before {
         padding-block: 12px;
     }
 
-    nav > div {
+    nav>div {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
     }
 
-    nav > div img:first-child {
+    nav>div img:first-child {
         width: 220px !important;
         height: 37px !important;
     }
@@ -371,7 +380,8 @@ main::before {
     /* ── PLAYER DE MUSICA ── */
     .music-player,
     .music-player-wrap {
-        height: 340px !important;  /* columnas apiladas necesitan mas espacio */
+        height: 340px !important;
+        /* columnas apiladas necesitan mas espacio */
         padding: 0 !important;
         overflow: hidden;
     }
@@ -516,7 +526,7 @@ main::before {
     }
 
     /* ── IFRAME DEL ATABOOK (guestbook) ── */
-    section.center-panel > iframe {
+    section.center-panel>iframe {
         height: 400px !important;
         width: 100%;
     }
@@ -552,7 +562,7 @@ main::before {
    RESPONSIVE EXTRA PEQUEÑO (max 400px)
    =========================== */
 @media(max-width: 400px) {
-    nav > div img:first-child {
+    nav>div img:first-child {
         width: 180px !important;
         height: 30px !important;
     }
@@ -571,7 +581,7 @@ main::before {
         height: 85px;
     }
 
-    .skill-sticker > img {
+    .skill-sticker>img {
         width: 80px;
         height: 32px;
     }
@@ -679,7 +689,7 @@ main::before {
 
 }
 
-.contact-links > li > a {
+.contact-links>li>a {
     color: #fff;
     font-size: 1.1rem;
     text-shadow: 1px 1px 2px #7c4dff;
@@ -698,7 +708,7 @@ main::before {
             #000);
 }
 
-.about-header{
+.about-header {
     font-style: italic;
 }
 
@@ -870,8 +880,8 @@ main {
     color: #fff;
 
     background: #000;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #fff;
+    border-left: 1px solid #30293f;
+    border-right: 1px solid #30293f;
 
     position: relative;
 
@@ -1085,7 +1095,8 @@ main {
     font-size: 1.1rem;
     width: 100%;
 }
-.tracklist-title{
+
+.tracklist-title {
     text-wrap: wrap;
     font-style: italic;
     font-weight: bold;
@@ -1093,10 +1104,10 @@ main {
     text-align: center;
     color: #fff;
     font-size: 1.1rem;
-    width: 100%;   
+    width: 100%;
 }
 
-.track{
+.track {
     color: #fff;
     font-size: 1.1rem;
     text-decoration: none;
@@ -1147,10 +1158,10 @@ main {
     }
 }
 
-.tracklist{
+.tracklist {
     color: #fff;
     margin-top: 2px;
-    display: flex; 
+    display: flex;
     flex-direction: column;
     align-items: center;
     background-color: rgb(15, 15, 15);
