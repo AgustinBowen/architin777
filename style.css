@@ -255,21 +255,329 @@ main::before {
     .grid-layout {
         grid-template-columns: 1fr;
     }
-}
 
-@media(max-width: 760px) {
-    .container {
-        width: 95%;
+    /* Reorden de paneles: centro → derecha → izquierda */
+    .center-panel { order: 1; }
+    .right-panel  { order: 2; }
+    .left-panel   { order: 3; }
+
+    /* Evita que imágenes desborden sus contenedores
+       EXCLUIMOS .cover para que no pierda su height:100% */
+    .left-panel img:not(.cover),
+    .right-panel img:not(.cover),
+    .center-panel img:not(.cover) {
+        max-width: 100%;
+        height: auto;
     }
 
-    nav {
-        padding-inline: 20px;
+    .left-panel,
+    .right-panel {
+        overflow: hidden;
+    }
+
+    /* Disco giratorio: desactivado en responsive (desborda lateralmente) */
+    .recordPlayer::before {
+        display: none;
+    }
+
+    /* CD case: tamaño contenido */
+    .recordPlayer {
+        width: 160px;
+        overflow: visible;
+    }
+
+    .cd-case {
+        width: 160px;
+        height: 140px;
+        overflow: hidden;
+    }
+
+    /* La portada ocupa toda la caja, sin deformarse */
+    .cd-case .cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+/* ===========================
+   RESPONSIVE MOVIL (max 760px)
+   === estilo retro 90s/00s ===
+   =========================== */
+@media(max-width: 760px) {
+
+    /* Contenedor principal mas angosto */
+    .container {
+        width: 96%;
+        padding-block: 14px;
+        padding-inline: 8px;
+    }
+
+    /* Evita scroll horizontal en movil */
+    html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+
+    /* Todas las imagenes respetan el ancho del padre
+       EXCLUIMOS .cover para preservar su height:100% dentro del cd-case */
+    img:not(.cover) {
+        max-width: 100%;
         height: auto;
+    }
+
+    /* La portada del CD siempre llena su caja correctamente */
+    .cd-case .cover {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+        max-width: none;
+    }
+
+    /* Iframes no se salen */
+    iframe {
+        max-width: 100%;
+    }
+
+    /* ── NAV / HEADER ── */
+    nav {
+        padding-inline: 14px;
+        height: auto;
+        padding-block: 12px;
+    }
+
+    nav > div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    nav > div img:first-child {
+        width: 220px !important;
+        height: 37px !important;
     }
 
     nav ul {
         flex-wrap: wrap;
+        gap: 8px;
+        padding: 8px 14px;
+    }
+
+    .nav-links {
+        font-size: 0.95rem;
+    }
+
+    /* ── PLAYER DE MUSICA ── */
+    .music-player,
+    .music-player-wrap {
+        height: 340px !important;  /* columnas apiladas necesitan mas espacio */
+        padding: 0 !important;
+        overflow: hidden;
+    }
+
+    /* El iframe ocupa toda la altura del contenedor */
+    .music-player-wrap iframe {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* GIFs decorativos del player: se ocultan en movil
+       para no desbordar el layout */
+    .dj-gif,
+    .speaker-gif {
+        display: none;
+    }
+
+    /* ── GRID PRINCIPAL ── */
+    .grid-layout {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 0 4px;
+    }
+
+    main {
+        padding: 18px 14px;
+    }
+
+    /* ── PANELES LATERALES ── */
+    .left-panel,
+    .right-panel {
+        padding: 14px;
+    }
+
+    /* ── PERFIL ── */
+    .profile-name {
+        font-size: 1.8rem;
+    }
+
+    .profile-card img {
+        width: 130px;
+        height: 130px;
+    }
+
+    .profile-info {
+        flex-direction: column;
         gap: 10px;
+        align-items: center;
+    }
+
+    /* ── SOBRE MI ── */
+    .glow {
+        height: auto;
+        min-height: 80px;
+        font-size: 0.95rem;
+        padding: 8px;
+    }
+
+    .glowpad {
+        padding: 8px 6px;
+    }
+
+    /* ── PROYECTOS (CD Cases) ── */
+    /* Grid de 2 columnas para los CDs — mejor uso del espacio en móvil */
+    .projects-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px 16px;
+        justify-items: center;
+        align-items: start;
+    }
+
+    .recordPlayer {
+        width: 140px;
+        overflow: hidden;
+    }
+
+    /* Disco giratorio ya desactivado en 1100px, reforzamos acá */
+    .recordPlayer::before {
+        display: none !important;
+    }
+
+    .cd-case {
+        width: 140px;
+        height: 120px;
+        overflow: hidden;
+    }
+
+    /* Portada: llena la caja sin deformarse */
+    .cd-case .cover {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+        max-width: none;
+    }
+
+    .cd-title {
+        font-size: 0.95rem;
+    }
+
+    .tracklist {
+        padding-block: 12px;
+        padding-inline: 20px;
+    }
+
+    /* ── HABILIDADES ── */
+    .skills-grid {
+        justify-content: center;
+    }
+
+    .skills-gif {
+        width: 120px;
+        height: 113px;
+    }
+
+    /* ── FORMULARIO DE CONTACTO ── */
+    .contact-form {
+        padding: 10px 6px;
+        font-size: 1.4rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 0.95rem;
+        padding: 8px;
+    }
+
+    .contact-form textarea {
+        height: 140px;
+    }
+
+    .contact-form button {
+        font-size: 1.3rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    /* ── CARD GENERICO ── */
+    .card {
+        padding: 28px 12px 14px;
+    }
+
+    /* ── IFRAME DEL ATABOOK (guestbook) ── */
+    section.center-panel > iframe {
+        height: 400px !important;
+        width: 100%;
+    }
+
+    /* ── RELOJ ── */
+    .time-date-clock {
+        width: 100% !important;
+        max-width: 174px;
+    }
+
+    /* ── GIF INFERIOR ── */
+    .bottom-gif {
+        height: 60px;
+        object-fit: cover;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+        font-size: 1rem;
+        text-align: center;
+        margin-block: 14px;
+    }
+
+    /* ── CARD-TITLE que desborda en pantallas chicas ── */
+    .card-title {
+        font-size: 1rem;
+        white-space: normal;
+        text-align: center;
+    }
+}
+
+/* ===========================
+   RESPONSIVE EXTRA PEQUEÑO (max 400px)
+   =========================== */
+@media(max-width: 400px) {
+    nav > div img:first-child {
+        width: 180px !important;
+        height: 30px !important;
+    }
+
+    .profile-name {
+        font-size: 1.4rem;
+    }
+
+    .profile-card img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .skills-gif {
+        width: 90px;
+        height: 85px;
+    }
+
+    .skill-sticker > img {
+        width: 80px;
+        height: 32px;
+    }
+
+    .contact-form button {
+        font-size: 1.1rem;
     }
 }
 

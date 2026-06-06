@@ -15,6 +15,7 @@
 body{
     width: 100%;
     height: 100%;
+    overflow: hidden;          /* sin scroll interno */
     font-family: monospace;
     color: white;
     background: linear-gradient(90deg, rgba(129,129,129,1) 0%, rgba(96,96,96,1) 10%, rgba(30,30,30,1) 90%);
@@ -345,4 +346,86 @@ input[type="range"]::-moz-range-thumb:active /* For Firefox */ {
     height: 30px;
     max-width: 175px;
     text-overflow: ellipsis;
+}
+
+
+/* ============================================
+   RESPONSIVE — player compacto para móvil
+   ============================================ */
+@media (max-width: 760px) {
+
+    html, body {
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+    }
+
+    /* Las columnas se apilan verticalmente */
+    .columns {
+        flex-direction: column;
+    }
+
+    .columns > div:first-child {
+        margin-right: 0;
+        margin-bottom: 4px;
+        width: 100%;
+    }
+
+    /* Display de video: más pequeño y ancho completo */
+    #player-display {
+        width: 100%;
+        height: 50px;
+    }
+
+    /* Info screen más compacta */
+    #info-screen {
+        font-size: medium;
+        padding: 2px 4px;
+    }
+
+    /* Fila de volumen y selector de tema */
+    .player-row {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    /* Barra de volumen fluida */
+    #volumeBar {
+        width: 80px;
+    }
+
+    /* Selector de tema más chico */
+    #themeSelector {
+        max-width: 110px;
+        font-size: 7pt;
+    }
+
+    /* Controles de reproducción más juntos */
+    .playing-controls button {
+        height: 26px;
+        min-width: 40px;
+    }
+
+    /* Selector de playlist más chico */
+    #playlistSelector {
+        max-width: 130px;
+        height: 26px;
+        font-size: 7pt;
+    }
+
+    /* Seek bar ocupa todo el ancho */
+    #seekBar {
+        width: 100%;
+        margin-bottom: 6px;
+    }
+
+    /* Reducir márgenes internos del body del player */
+    #player-body {
+        padding: 4px;
+        margin: 1px;
+    }
+
+    #player-main-section {
+        margin-bottom: 3px;
+    }
 }
